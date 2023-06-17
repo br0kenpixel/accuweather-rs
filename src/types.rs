@@ -4,7 +4,7 @@ extern crate serde_json;
 use std::fmt;
 
 /// Type for most of Accuweather forecasts value
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct AccuweatherMeasurement {
     /// the actual value
@@ -34,7 +34,7 @@ impl fmt::Display for AccuweatherMeasurement {
 }
 
 /// Represntation of Air and Pollen information
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct AirAndPollen {
     pub name: String,
@@ -46,7 +46,7 @@ pub struct AirAndPollen {
 }
 
 /// Representation of wind direction
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct WindDirection {
     pub degrees: f32,
@@ -55,7 +55,7 @@ pub struct WindDirection {
 }
 
 /// Represnetation of Wind in forecasts api
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct Wind {
     pub speed: AccuweatherMeasurement,
@@ -63,14 +63,14 @@ pub struct Wind {
 }
 
 /// Representation of wind gust in daily forecasts api
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct DailyWindGust {
     speed: AccuweatherMeasurement,
 }
 
 /// Representation of temperature in daily forecast
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct Temperature {
     pub maximum: AccuweatherMeasurement,
@@ -78,7 +78,7 @@ pub struct Temperature {
 }
 
 /// Represention of forecast for a day part (either night or day) in daily forecast api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct DayPartForecast {
     pub cloud_cover: i32,
@@ -102,7 +102,7 @@ pub struct DayPartForecast {
 }
 
 /// Representation of degree day summary in daily forecast api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct DegreeDaySummary {
     pub heating: AccuweatherMeasurement,
@@ -110,7 +110,7 @@ pub struct DegreeDaySummary {
 }
 
 /// Representation of Sun information in daily forecast api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct Sun {
     pub rise: String,
@@ -120,7 +120,7 @@ pub struct Sun {
 }
 
 /// Representation of Moon information in daily forecast api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct Moon {
     pub rise: String,
@@ -132,7 +132,7 @@ pub struct Moon {
 }
 
 /// Representation of daily forecast
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct DailyForecast {
     pub air_and_pollen: Vec<AirAndPollen>,
@@ -153,7 +153,7 @@ pub struct DailyForecast {
 }
 
 /// Representation of the Headline part of daily forecast api answer
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct Headline {
     pub effective_date: String,
@@ -168,7 +168,7 @@ pub struct Headline {
 }
 
 /// Representation of daily forecast api answer
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct DailyForecastsAnswer {
     pub headline: Headline,
@@ -180,7 +180,7 @@ fn air_pollen_default_type() -> String {
 }
 
 /// Representation of an hourly forecast
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct HourlyForecast {
     pub ceiling: AccuweatherMeasurement,
@@ -215,7 +215,7 @@ pub struct HourlyForecast {
 }
 
 /// Representation of LocalSource for current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct LocalSource {
     pub id: i32,
@@ -224,7 +224,7 @@ pub struct LocalSource {
 }
 
 /// Representation of a measurement in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct ConditionMeasurement {
     pub metric: AccuweatherMeasurement,
@@ -232,7 +232,7 @@ pub struct ConditionMeasurement {
 }
 
 /// Representation of pressure tendency in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct PressureTendency {
     pub localized_text: String,
@@ -240,7 +240,7 @@ pub struct PressureTendency {
 }
 
 /// Reprensentation of preciipiation summary in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct PrecipitationSummary {
     pub precipitation: ConditionMeasurement,
@@ -254,7 +254,7 @@ pub struct PrecipitationSummary {
 }
 
 /// Representation of temperature summary in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct TemperatureSummary {
     pub past6_hour_range: TemperatureSummaryRange,
@@ -263,7 +263,7 @@ pub struct TemperatureSummary {
 }
 
 /// Representation of temperature summary during a rang of time in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct TemperatureSummaryRange {
     pub minimum: ConditionMeasurement,
@@ -271,7 +271,7 @@ pub struct TemperatureSummaryRange {
 }
 
 /// Representation of wind in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct WindCondition {
     pub speed: ConditionMeasurement,
@@ -279,14 +279,14 @@ pub struct WindCondition {
 }
 
 /// Representation of wind gust in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct ConditionWindGust {
     pub speed: ConditionMeasurement,
 }
 
 /// Representation of Current Condion in current condition api.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct CurrentCondition {
     pub local_observation_date_time: String,
